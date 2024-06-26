@@ -7,13 +7,22 @@ const cors = require('cors');
 
 require('dotenv').config();
 
+const allowedOriginPattern = /^https:\/\/udemy-sns-frontend\./;
+
 app.use(
   cors({
-    origin: 'https://udemy-sns-frontend.vercel.app', // ReactアプリケーションのURL
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // 許可するHTTPメソッド
-    credentials: true, // 認証情報を含むリクエストを許可する場合
+    origin: function (origin, callback) {
+      if (!origin || allowedOriginPattern.test(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
   }),
 );
+
 app.use(express.json());
 app.use('/api/auth', authRoute);
 app.use('/api/posts', postsRoute);
