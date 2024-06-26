@@ -9,7 +9,7 @@ require('dotenv').config();
 
 app.use(
   cors({
-    origin: 'https://udemy-sns-frontend.vercel.app/', // ReactアプリケーションのURL
+    origin: 'https://udemy-sns-frontend.vercel.app', // ReactアプリケーションのURL
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // 許可するHTTPメソッド
     credentials: true, // 認証情報を含むリクエストを許可する場合
   }),
